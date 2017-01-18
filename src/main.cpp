@@ -5,11 +5,21 @@
 #include <iostream>
 #include <map>
 
+struct Game
+{
+    Game(int width, int height, const Location& snakeLocation)
+    : grid(width, height)
+    , snake(grid, snakeLocation) {}
+
+    Grid grid;
+    Snake snake;
+};
+
 void drawGrid(const Grid& grid, sf::RenderTarget& target);
 
 void addFood(Grid& grid, int amount);
 
-void reset(Grid& grid, Snake& snake);
+void reset(Game& game);
 
 int main(int argc, char* argv[])
 {
@@ -18,13 +28,12 @@ int main(int argc, char* argv[])
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML Template");
     window.setFramerateLimit(60);
 
-    Grid grid(20, 20);
-    Snake snake(grid, {10, 10});
+    Game game(20, 20, {10, 10});
 
     int every = 10;
     bool dead = false;
 
-    reset(grid, snake);
+    reset(game);
 
     while (window.isOpen())
     {
@@ -45,14 +54,14 @@ int main(int argc, char* argv[])
                 if (search != directions.end())
                 {
                     Direction dir = search->second;
-                    snake.turn(dir);
+                    game.snake.turn(dir);
                 }
             }
             else if (event.type == sf::Event::MouseButtonPressed)
             {
                 if (event.mouseButton.button == sf::Mouse::Left && dead)
                 {
-                    reset(grid, snake);
+                    reset(game);
                     dead = false;
                 }
             }
@@ -60,26 +69,26 @@ int main(int argc, char* argv[])
 
         if (!dead && --every == 0)
         {
-            if (!snake.move())
+            if (!game.snake.move())
             {
                 std::cout << "DEAD!" << std::endl;
                 dead = true;
             }
             else
             {
-                Cell& atHead = grid[snake.location()];
+                Cell& atHead = game.grid[game.snake.location()];
                 if (atHead.hasFood())
                 {
                     atHead.hasFood(false);
-                    snake.grow(3);
-                    addFood(grid, 1);
+                    game.snake.grow(3);
+                    addFood(game.grid, 1);
                 }
             }
             every = 10;
         }
 
         window.clear(sf::Color::White);
-        drawGrid(grid, window);
+        drawGrid(game.grid, window);
         window.display();
     }
 
@@ -124,13 +133,13 @@ void addFood(Grid& grid, int amount)
     }
 }
 
-void reset(Grid& grid, Snake& snake)
+void reset(Game& game)
 {
-    for(auto& cell: grid)
+    for(auto& cell: game.grid)
     {
         cell.hasSnake(false);
         cell.hasFood(false);
     }
-    snake.reset({10, 10});
-    addFood(grid, 5);
+    game.snake.reset({10, 10});
+    addFood(game.grid, 5);
 }

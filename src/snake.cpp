@@ -16,6 +16,7 @@ void Snake::reset(const Location& location)
     d_locations.clear();
     d_locations.push_back(location);
     d_grid[d_locations.back()].hasSnake(true);
+    d_direction = Direction::LEFT;
 }
 
 void Snake::turn(Direction direction)
