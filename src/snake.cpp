@@ -20,8 +20,12 @@ void Snake::reset(const Location& location)
 
 void Snake::turn(Direction direction)
 {
+    // Don't add duplicates
+    if (!d_nextDirections.empty() && d_nextDirections.back() == direction)
+        return;
+
     // Limit the number of next directions
-    if (d_nextDirections.size() < 4)
+    if (d_nextDirections.size() < 3)
         d_nextDirections.push_back(direction);
 }
 
