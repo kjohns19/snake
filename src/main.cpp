@@ -18,8 +18,8 @@ int main(int argc, char* argv[])
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML Template");
     window.setFramerateLimit(60);
 
-    Grid grid(40, 40);
-    Snake snake(grid, {20, 20});
+    Grid grid(20, 20);
+    Snake snake(grid, {10, 10});
 
     int every = 10;
     bool dead = false;
@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
 
 void drawGrid(const Grid& grid, sf::RenderTarget& target)
 {
-    float cellSize = 20.0f;
+    float cellSize = 40.0f;
     sf::RectangleShape cellRect;
     cellRect.setOutlineColor(sf::Color::Black);
     cellRect.setOutlineThickness(-2.0f);
@@ -131,6 +131,6 @@ void reset(Grid& grid, Snake& snake)
         cell.hasSnake(false);
         cell.hasFood(false);
     }
-    snake.reset({20, 20});
+    snake.reset({10, 10});
     addFood(grid, 5);
 }
