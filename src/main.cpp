@@ -120,16 +120,19 @@ void drawGrid(const Grid& grid, sf::RenderTarget& target)
 void addFood(Grid& grid, int amount)
 {
     static kj::Random<int> random;
-    for(int i = 0; i < amount; i++)
+    std::vector<Cell*> validCells;
+    for(auto& cell: grid)
     {
-        Cell* cell;
-        do
-        {
-            Location loc(random(0, grid.width()-1), random(0, grid.height()-1));
-            cell = &grid[loc];
-        }
-        while(cell->hasFood() || cell->hasSnake());
-        cell->hasFood(true);
+        if (!cell.hasFood() && !cell.hasSnake())
+            validCells.push_back(&cell);
+    }
+    int maxSize = validCells.size();
+    for(int i = 0; i < amount && i < maxSize; i++)
+    {
+        Cell& cell = *validCells[random(0, maxSize-1)];
+        cell.hasFood(true);
+        std::swap(validCells[i], validCells[maxSize-1]);
+        maxSize--;
     }
 }
 
