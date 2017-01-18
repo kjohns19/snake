@@ -57,21 +57,21 @@ int main(int argc, char* argv[])
                     game.snake.turn(dir);
                 }
             }
-            else if (event.type == sf::Event::MouseButtonPressed)
+        }
+
+        if (--every == 0)
+        {
+            if (dead)
             {
-                if (event.mouseButton.button == sf::Mouse::Left && dead)
+                if (game.snake.die())
                 {
                     reset(game);
                     dead = false;
                 }
             }
-        }
-
-        if (!dead && --every == 0)
-        {
-            if (!game.snake.move())
+            else if (!game.snake.move())
             {
-                std::cout << "DEAD!" << std::endl;
+                std::cout << "DEAD! Score: " << game.snake.length() << std::endl;
                 dead = true;
             }
             else

@@ -19,6 +19,8 @@ public:
     bool move();
 
     void grow(int amount=1);
+    bool die();
+    int length() const { return d_locations.size(); }
 
     const Location& location() const;
 private:

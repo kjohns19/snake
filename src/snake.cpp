@@ -74,6 +74,20 @@ void Snake::grow(int amount)
         d_locations.push_front(d_locations.front());
 }
 
+bool Snake::die()
+{
+    if (d_locations.empty())
+        return true;
+    auto front = d_locations.front();
+    auto back  = d_locations.back();
+    d_locations.pop_front();
+    if (!d_locations.empty())
+        d_locations.pop_back();
+    d_grid[front].hasSnake(false);
+    d_grid[back ].hasSnake(false);
+    return false;
+}
+
 const Location& Snake::location() const
 {
     return d_locations.back();
