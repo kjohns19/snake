@@ -119,7 +119,7 @@ void addFood(Grid& grid, int amount)
             Location loc(random(0, grid.width()-1), random(0, grid.height()-1));
             cell = &grid[loc];
         }
-        while(cell->hasFood() && !cell->hasSnake());
+        while(cell->hasFood() || cell->hasSnake());
         cell->hasFood(true);
     }
 }
