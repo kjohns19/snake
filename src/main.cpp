@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 {
     const int width = 800;
     const int height = 800;
-    sf::RenderWindow window(sf::VideoMode(width, height), "SFML Template");
+    sf::RenderWindow window(sf::VideoMode(width, height), "Snake");
     window.setFramerateLimit(60);
 
     Game game(20, 20, {10, 10}, 3);
