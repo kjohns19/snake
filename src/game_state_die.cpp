@@ -1,13 +1,17 @@
 #include <game_state_die.hpp>
 #include <game_state_play.hpp>
-#include <grid.hpp>
 #include <snake.hpp>
 #include <game.hpp>
 
 std::unique_ptr<GameState> GameStateDie::handleInput(
-        Snake& snake,
+        Game& game,
         sf::Keyboard::Key key)
 {
+    if (key == sf::Keyboard::Space)
+    {
+        game.reset();
+        return std::make_unique<GameStatePlay>();
+    }
     return std::make_unique<GameStateDie>();
 }
 

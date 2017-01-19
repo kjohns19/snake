@@ -7,7 +7,7 @@ class GameStateDie : public GameState
 {
 public:
     virtual std::unique_ptr<GameState> handleInput(
-            Snake& snake,
+            Game& game,
             sf::Keyboard::Key key) override;
     virtual std::unique_ptr<GameState> step(Game& game) override;
 };

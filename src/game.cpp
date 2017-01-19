@@ -14,7 +14,7 @@ Game::Game(int width, int height, const Location& startPos, int startSize)
 
 void Game::handleInput(sf::Keyboard::Key key)
 {
-    d_gameState = d_gameState->handleInput(d_snake, key);
+    d_gameState = d_gameState->handleInput(*this, key);
 }
 
 void Game::step()

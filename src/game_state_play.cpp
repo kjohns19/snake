@@ -7,7 +7,7 @@
 #include <iostream>
 
 std::unique_ptr<GameState> GameStatePlay::handleInput(
-        Snake& snake,
+        Game& game,
         sf::Keyboard::Key key)
 {
     static std::map<sf::Keyboard::Key, Direction> directions{
@@ -20,7 +20,7 @@ std::unique_ptr<GameState> GameStatePlay::handleInput(
     if (search != directions.end())
     {
         Direction dir = search->second;
-        snake.turn(dir);
+        game.snake().turn(dir);
     }
     return std::make_unique<GameStatePlay>();
 }
