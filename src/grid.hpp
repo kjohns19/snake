@@ -18,6 +18,8 @@ public:
     Cell& operator[](const Location& location);
     const Cell& operator[](const Location& location) const;
 
+    void addFood(int amount=1);
+
     using iterator = std::vector<Cell>::iterator;
     using const_iterator = std::vector<Cell>::const_iterator;
 

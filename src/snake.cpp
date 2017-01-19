@@ -2,19 +2,19 @@
 #include <grid.hpp>
 #include <cassert>
 
-Snake::Snake(Grid& grid, const Location& location)
+Snake::Snake(Grid& grid, const Location& location, int startSize)
 : d_grid(grid)
 , d_direction(Direction::LEFT)
-, d_locations({location})
+, d_locations(startSize, location)
 {
     d_grid[d_locations.back()].hasSnake(true);
 }
 
-void Snake::reset(const Location& location)
+void Snake::reset(const Location& location, int startSize)
 {
     d_nextDirections.clear();
     d_locations.clear();
-    d_locations.push_back(location);
+    d_locations.assign(startSize, location);
     d_grid[d_locations.back()].hasSnake(true);
     d_direction = Direction::LEFT;
 }

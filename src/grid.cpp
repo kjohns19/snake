@@ -1,4 +1,5 @@
 #include <grid.hpp>
+#include <kj/random.hpp>
 #include <cassert>
 
 Grid::Grid(int width, int height)
@@ -32,4 +33,23 @@ const Cell& Grid::operator[](const Location& location) const
 int Grid::index(const Location& location) const
 {
     return d_width*location.y() + location.x();
+}
+
+void Grid::addFood(int amount)
+{
+    static kj::Random<int> random;
+    std::vector<Cell*> validCells;
+    for(auto& cell: *this)
+    {
+        if (!cell.hasFood() && !cell.hasSnake())
+            validCells.push_back(&cell);
+    }
+    int maxSize = validCells.size();
+    for(int i = 0; i < amount && i < maxSize; i++)
+    {
+        Cell& cell = *validCells[random(0, maxSize-1)];
+        cell.hasFood(true);
+        std::swap(validCells[i], validCells[maxSize-1]);
+        maxSize--;
+    }
 }

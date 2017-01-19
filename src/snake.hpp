@@ -10,9 +10,9 @@ class Grid;
 class Snake
 {
 public:
-    Snake(Grid& grid, const Location& location);
+    Snake(Grid& grid, const Location& location, int startSize);
 
-    void reset(const Location& location);
+    void reset(const Location& location, int startSize);
 
     void turn(Direction direction);
 
