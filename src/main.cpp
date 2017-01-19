@@ -13,7 +13,8 @@ int main(int argc, char* argv[])
 
     Game game(20, 20, {10, 10}, 3);
 
-    int every = 10;
+    int interval = 8;
+    int step = 0;
 
     while (window.isOpen())
     {
@@ -26,10 +27,10 @@ int main(int argc, char* argv[])
                 game.handleInput(event.key.code);
         }
 
-        if (--every == 0)
+        if (step++ == interval)
         {
             game.step();
-            every = 10;
+            step = 0;
         }
 
         window.clear(sf::Color::White);
