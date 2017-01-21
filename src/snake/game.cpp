@@ -1,6 +1,7 @@
 #include <snake/game.hpp>
 #include <snake/game_state_new.hpp>
 #include <SFML/Window/Event.hpp>
+#include <vector>
 
 namespace snake {
 
@@ -19,6 +20,8 @@ constexpr int startY = gameHeight/2;
 constexpr int foodCount = 5;
 
 constexpr int cellSize = 40;
+
+void pollEvents(sf::Window& window, Game& game, std::vector<sf::Event>* events);
 
 } // close anonymous namespace
 
@@ -41,7 +44,7 @@ void Game::loop()
     std::vector<sf::Event> events;
     while(d_window.isOpen())
     {
-        pollEvents(&events);
+        pollEvents(d_window, *this, &events);
 
         if (d_exited)
             break;
@@ -78,20 +81,24 @@ void Game::setState(std::unique_ptr<GameState> state)
     d_state = std::move(state);
 }
 
-void Game::pollEvents(std::vector<sf::Event>* events)
+namespace {
+
+void pollEvents(sf::Window& window, Game& game, std::vector<sf::Event>* events)
 {
     sf::Event event;
-    while(d_window.pollEvent(event))
+    while(window.pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
         {
-            exit();
+            game.exit();
             break;
         }
         else if (event.type == sf::Event::KeyPressed)
             events->push_back(event);
     }
 }
+
+} // close anonymous namespace
 
 } // close namespace snake
 

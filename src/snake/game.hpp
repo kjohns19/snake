@@ -6,7 +6,6 @@
 #include <snake/display.hpp>
 #include <snake/game_state.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <vector>
 #include <memory>
 
 namespace snake {
@@ -29,8 +28,6 @@ public:
 
     void setState(std::unique_ptr<GameState> state);
 private:
-    void pollEvents(std::vector<sf::Event>* events);
-
     sf::RenderWindow d_window;
     Grid d_grid;
     Snake d_snake;
