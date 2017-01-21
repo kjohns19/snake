@@ -1,6 +1,8 @@
-#include <grid.hpp>
+#include <snake/grid.hpp>
 #include <kj/random.hpp>
 #include <cassert>
+
+namespace snake {
 
 Grid::Grid(int width, int height)
 : d_cells(width*height)
@@ -53,3 +55,5 @@ void Grid::addFood(int amount)
         maxSize--;
     }
 }
+
+} // close namespace snake

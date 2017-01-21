@@ -1,10 +1,12 @@
-#ifndef INCLUDED_GRID_HPP
-#define INCLUDED_GRID_HPP
+#ifndef INCLUDED_SNAKE_GRID_HPP
+#define INCLUDED_SNAKE_GRID_HPP
 
-#include <location.hpp>
-#include <cell.hpp>
+#include <snake/location.hpp>
+#include <snake/cell.hpp>
 
 #include <vector>
+
+namespace snake {
 
 class Grid
 {
@@ -36,4 +38,6 @@ private:
     int d_height;
 };
 
-#endif // INCLUDED_GRID_HPP
+} // close namespace snake
+
+#endif // INCLUDED_SNAKE_GRID_HPP

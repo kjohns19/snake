@@ -1,9 +1,11 @@
-#ifndef INCLUDED_SNAKE_HPP
-#define INCLUDED_SNAKE_HPP
+#ifndef INCLUDED_SNAKE_SNAKE_HPP
+#define INCLUDED_SNAKE_SNAKE_HPP
 
-#include <location.hpp>
+#include <snake/location.hpp>
 #include <deque>
 #include <queue>
+
+namespace snake {
 
 class Grid;
 
@@ -30,4 +32,6 @@ private:
     std::deque<Location> d_locations;
 };
 
-#endif // INCLUDED_SNAKE_HPP
+} // close namespace snake
+
+#endif // INCLUDED_SNAKE_SNAKE_HPP

@@ -1,10 +1,12 @@
-#include <game_state_play.hpp>
-#include <game_state_die.hpp>
-#include <grid.hpp>
-#include <snake.hpp>
-#include <game.hpp>
+#include <snake/game_state_play.hpp>
+#include <snake/game_state_die.hpp>
+#include <snake/grid.hpp>
+#include <snake/snake.hpp>
+#include <snake/game.hpp>
 #include <map>
 #include <iostream>
+
+namespace snake {
 
 std::unique_ptr<GameState> GameStatePlay::handleInput(
         Game& game,
@@ -44,3 +46,5 @@ std::unique_ptr<GameState> GameStatePlay::step(Game& game)
     }
     return std::make_unique<GameStatePlay>();
 }
+
+} // close namespace snake

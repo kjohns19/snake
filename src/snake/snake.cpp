@@ -1,6 +1,8 @@
-#include <snake.hpp>
-#include <grid.hpp>
+#include <snake/snake.hpp>
+#include <snake/grid.hpp>
 #include <cassert>
+
+namespace snake {
 
 Snake::Snake(Grid& grid, const Location& location, int startSize)
 : d_grid(grid)
@@ -92,3 +94,5 @@ const Location& Snake::location() const
 {
     return d_locations.back();
 }
+
+} // close namespace snake

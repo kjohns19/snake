@@ -1,8 +1,10 @@
-#ifndef INCLUDED_GAME_STATE_HPP
-#define INCLUDED_GAME_STATE_HPP
+#ifndef INCLUDED_SNAKE_GAME_STATE_HPP
+#define INCLUDED_SNAKE_GAME_STATE_HPP
 
 #include <SFML/Window/Keyboard.hpp>
 #include <memory>
+
+namespace snake {
 
 class Game;
 
@@ -15,4 +17,6 @@ public:
     virtual std::unique_ptr<GameState> step(Game& game) = 0;
 };
 
-#endif // INCLUDED_GAME_STATE_HPP
+} // close namespace snake
+
+#endif // INCLUDED_SNAKE_GAME_STATE_HPP

@@ -1,4 +1,6 @@
-#include <location.hpp>
+#include <snake/location.hpp>
+
+namespace snake {
 
 Location::Location()
 : d_x(0)
@@ -45,3 +47,5 @@ bool operator!=(const Location& l1, const Location& l2)
 {
     return !(l1 == l2);
 }
+
+} // close namespace snake

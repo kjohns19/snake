@@ -1,6 +1,5 @@
-#include <kj/random.hpp>
+#include <snake/game.hpp>
 #include <SFML/Graphics.hpp>
-#include <game.hpp>
 #include <iostream>
 #include <map>
 
@@ -11,7 +10,7 @@ int main(int argc, char* argv[])
     sf::RenderWindow window(sf::VideoMode(width, height), "Snake");
     window.setFramerateLimit(60);
 
-    Game game(20, 20, {10, 10}, 3);
+    snake::Game game(20, 20, {10, 10}, 3);
 
     int interval = 8;
     int step = 0;

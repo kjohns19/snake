@@ -1,6 +1,8 @@
-#include <game.hpp>
-#include <game_state_play.hpp>
+#include <snake/game.hpp>
+#include <snake/game_state_play.hpp>
 #include <SFML/Graphics.hpp>
+
+namespace snake {
 
 Game::Game(int width, int height, const Location& startPos, int startSize)
 : d_grid(width, height)
@@ -54,3 +56,5 @@ void Game::reset()
     d_snake.reset(d_startPos, d_startSize);
     d_grid.addFood(5);
 }
+
+} // close namespace snake

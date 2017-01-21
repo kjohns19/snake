@@ -1,7 +1,9 @@
-#ifndef INCLUDED_CELL_HPP
-#define INCLUDED_CELL_HPP
+#ifndef INCLUDED_SNAKE_CELL_HPP
+#define INCLUDED_SNAKE_CELL_HPP
 
-#include <location.hpp>
+#include <snake/location.hpp>
+
+namespace snake {
 
 class Cell
 {
@@ -25,4 +27,6 @@ private:
     bool d_hasFood;
 };
 
-#endif // INCLUDED_CELL_HPP
+} // close namespace snake
+
+#endif // INCLUDED_SNAKE_CELL_HPP

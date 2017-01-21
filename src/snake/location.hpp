@@ -1,5 +1,7 @@
-#ifndef INCLUDED_LOCATION_HPP
-#define INCLUDED_LOCATION_HPP
+#ifndef INCLUDED_SNAKE_LOCATION_HPP
+#define INCLUDED_SNAKE_LOCATION_HPP
+
+namespace snake {
 
 enum class Direction { UP, RIGHT, DOWN, LEFT };
 
@@ -30,4 +32,6 @@ private:
 bool operator==(const Location& l1, const Location& l2);
 bool operator!=(const Location& l1, const Location& l2);
 
-#endif // INCLUDED_LOCATION_HPP
+} // close namespace snake
+
+#endif // INCLUDED_SNAKE_LOCATION_HPP

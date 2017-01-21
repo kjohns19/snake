@@ -1,14 +1,17 @@
-#ifndef INCLUDED_GAME_HPP
-#define INCLUDED_GAME_HPP
+#ifndef INCLUDED_SNAKE_GAME_HPP
+#define INCLUDED_SNAKE_GAME_HPP
 
-#include <grid.hpp>
-#include <snake.hpp>
-#include <game_state.hpp>
+#include <snake/grid.hpp>
+#include <snake/snake.hpp>
+#include <snake/game_state.hpp>
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
 #include <memory>
+
+namespace sf { class RenderTarget; }
+
+namespace snake {
 
 class Game
 {
@@ -34,4 +37,6 @@ private:
     std::unique_ptr<GameState> d_gameState;
 };
 
-#endif // INCLUDED_GAME_HPP
+} // close namespace snake
+
+#endif // INCLUDED_SNAKE_GAME_HPP
