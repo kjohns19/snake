@@ -56,4 +56,13 @@ void Grid::addFood(int amount)
     }
 }
 
+void Grid::reset()
+{
+    for(auto& cell: d_cells)
+    {
+        cell.hasFood(false);
+        cell.hasSnake(false);
+    }
+}
+
 } // close namespace snake

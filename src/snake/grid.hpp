@@ -22,6 +22,8 @@ public:
 
     void addFood(int amount=1);
 
+    void reset();
+
     using iterator = std::vector<Cell>::iterator;
     using const_iterator = std::vector<Cell>::const_iterator;
 

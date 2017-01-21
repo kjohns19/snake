@@ -1,8 +1,9 @@
 #ifndef INCLUDED_SNAKE_GAME_STATE_HPP
 #define INCLUDED_SNAKE_GAME_STATE_HPP
 
-#include <SFML/Window/Keyboard.hpp>
-#include <memory>
+#include <vector>
+
+namespace sf { class Event; }
 
 namespace snake {
 
@@ -11,10 +12,10 @@ class Game;
 class GameState
 {
 public:
-    virtual std::unique_ptr<GameState> handleInput(
-            Game& game,
-            sf::Keyboard::Key key) = 0;
-    virtual std::unique_ptr<GameState> step(Game& game) = 0;
+    virtual ~GameState() {}
+    void processEvents(Game& game, const std::vector<sf::Event>& events);
+    virtual void processEvent(Game& game, const sf::Event& event) = 0;
+    virtual void step(Game& game) = 0;
 };
 
 } // close namespace snake

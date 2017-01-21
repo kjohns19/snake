@@ -1,60 +1,97 @@
 #include <snake/game.hpp>
-#include <snake/game_state_play.hpp>
-#include <SFML/Graphics.hpp>
+#include <snake/game_state_new.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace snake {
 
-Game::Game(int width, int height, const Location& startPos, int startSize)
-: d_grid(width, height)
-, d_snake(d_grid, startPos, startSize)
-, d_startPos(startPos)
-, d_startSize(startSize)
-, d_gameState(std::make_unique<GameStatePlay>())
+namespace {
+
+constexpr int windowWidth  = 800;
+constexpr int windowHeight = 800;
+
+constexpr int gameWidth = 20;
+constexpr int gameHeight = 20;
+constexpr int stepInterval = 6;
+
+constexpr int startSize = 3;
+constexpr int startX = gameWidth/2;
+constexpr int startY = gameHeight/2;
+constexpr int foodCount = 5;
+
+constexpr int cellSize = 40;
+
+} // close anonymous namespace
+
+Game::Game()
+: d_window(sf::VideoMode(windowWidth, windowHeight), "Snake")
+, d_grid(gameWidth, gameHeight)
+, d_snake(d_grid, {startX, startY}, startSize)
+, d_display(cellSize)
+, d_state(std::make_unique<GameStateNew>())
+, d_exited(false)
 {
-    reset();
+    d_window.setFramerateLimit(60);
+    d_grid.addFood(foodCount);
 }
 
-void Game::handleInput(sf::Keyboard::Key key)
+void Game::loop()
 {
-    d_gameState = d_gameState->handleInput(*this, key);
-}
+    int step = 0;
 
-void Game::step()
-{
-    d_gameState = d_gameState->step(*this);
-}
-
-void Game::draw(sf::RenderTarget& target) const
-{
-    float cellSize = 40.0f;
-    sf::RectangleShape cellRect;
-    cellRect.setOutlineColor(sf::Color::Black);
-    cellRect.setOutlineThickness(-2.0f);
-    cellRect.setSize({cellSize, cellSize});
-
-    for(auto& cell: d_grid)
+    std::vector<sf::Event> events;
+    while(d_window.isOpen())
     {
-        auto& loc = cell.location();
-        cellRect.setPosition({loc.x()*cellSize, loc.y()*cellSize});
-        if (cell.hasSnake())
-            cellRect.setFillColor(sf::Color::Blue);
-        else if (cell.hasFood())
-            cellRect.setFillColor(sf::Color::Red);
-        else
-            cellRect.setFillColor(sf::Color::White);
-        target.draw(cellRect);
+        pollEvents(&events);
+
+        if (d_exited)
+            break;
+
+        if (++step == stepInterval)
+        {
+            d_state->processEvents(*this, events);
+            d_state->step(*this);
+            step = 0;
+            events.clear();
+        }
+
+        d_window.clear();
+        d_display.display(d_grid, d_window);
+        d_window.display();
     }
 }
 
 void Game::reset()
 {
-    for(auto& cell: d_grid)
+    d_grid.reset();
+    d_snake.reset({startX, startY}, startSize);
+    d_grid.addFood(foodCount);
+}
+
+void Game::exit()
+{
+    d_window.close();
+    d_exited = true;
+}
+
+void Game::setState(std::unique_ptr<GameState> state)
+{
+    d_state = std::move(state);
+}
+
+void Game::pollEvents(std::vector<sf::Event>* events)
+{
+    sf::Event event;
+    while(d_window.pollEvent(event))
     {
-        cell.hasSnake(false);
-        cell.hasFood(false);
+        if (event.type == sf::Event::Closed)
+        {
+            exit();
+            break;
+        }
+        else if (event.type == sf::Event::KeyPressed)
+            events->push_back(event);
     }
-    d_snake.reset(d_startPos, d_startSize);
-    d_grid.addFood(5);
 }
 
 } // close namespace snake
+

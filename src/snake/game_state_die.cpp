@@ -1,30 +1,41 @@
 #include <snake/game_state_die.hpp>
-#include <snake/game_state_play.hpp>
+#include <snake/game_state_new.hpp>
 #include <snake/snake.hpp>
 #include <snake/game.hpp>
 
+#include <SFML/Window/Event.hpp>
+
 namespace snake {
 
-std::unique_ptr<GameState> GameStateDie::handleInput(
-        Game& game,
-        sf::Keyboard::Key key)
+namespace {
+
+void resetGame(Game& game);
+
+} // close anonymous namespace
+
+void GameStateDie::processEvent(Game& game, const sf::Event& event)
 {
-    if (key == sf::Keyboard::Space)
-    {
-        game.reset();
-        return std::make_unique<GameStatePlay>();
-    }
-    return std::make_unique<GameStateDie>();
+    if (event.type != sf::Event::KeyPressed)
+        return;
+
+    if (event.key.code == sf::Keyboard::Space)
+        resetGame(game);
 }
 
-std::unique_ptr<GameState> GameStateDie::step(Game& game)
+void GameStateDie::step(Game& game)
 {
     if (game.snake().die())
-    {
-        game.reset();
-        return std::make_unique<GameStatePlay>();
-    }
-    return std::make_unique<GameStateDie>();
+        resetGame(game);
 }
+
+namespace {
+
+void resetGame(Game& game)
+{
+    game.reset();
+    game.setState(std::make_unique<GameStateNew>());
+}
+
+} // close anonymous namespace
 
 } // close namespace snake

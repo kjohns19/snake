@@ -8,10 +8,8 @@ namespace snake {
 class GameStatePlay : public GameState
 {
 public:
-    virtual std::unique_ptr<GameState> handleInput(
-            Game& game,
-            sf::Keyboard::Key key) override;
-    virtual std::unique_ptr<GameState> step(Game& game) override;
+    virtual void processEvent(Game& game, const sf::Event& event) override;
+    virtual void step(Game& game) override;
 };
 
 } // close namespace snake
